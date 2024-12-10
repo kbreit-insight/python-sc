@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - "Dockerfile"
-      - "src/**"
+      - "app/**"
 jobs:
   Docker-Build-Push:
     steps:
