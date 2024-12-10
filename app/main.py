@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from fastapi import FastAPI
+from flask import Flask
 
-app = FastAPI()
+app = Flask(__name__)
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.route('/')
+def hello_world():
+    return '<p>Hello, World!</p>'
