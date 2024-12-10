@@ -9,6 +9,9 @@ on:
       - "app/**"
 jobs:
   Docker-Build-Push:
+    permissions:
+      id-token: write
+      attestations: write
     runs-on: ubuntu-latest
     steps:
       - name: Login to ACR
@@ -17,7 +20,15 @@ jobs:
           registry: ${{ vars.ACR_LOGIN_SERVER }}
           username: ${{ vars.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
-      - name: Build and push
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+          tags: ${{ vars.ACR_LOGIN_SERVER }}/${{ github.event.repository.name }}:latest
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: ${{ github.workspace }}/app
+      - name: Push image
         uses: docker/build-push-action@v6
         with:
           push: true
