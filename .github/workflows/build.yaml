@@ -20,6 +20,8 @@ jobs:
           registry: ${{ vars.ACR_LOGIN_SERVER }}
           username: ${{ vars.AZURE_CLIENT_ID }}
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Build and push image
         id: push
         uses: docker/build-push-action@v6
