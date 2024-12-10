@@ -9,6 +9,7 @@ on:
       - "app/**"
 jobs:
   Docker-Build-Push:
+    runs-on: ubuntu-latest
     steps:
       - name: Login to ACR
         uses: docker/login-action@v3
