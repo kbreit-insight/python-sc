@@ -1,3 +1,3 @@
 # Python Supply Chain Lab
 
-This is a sandbox to learn about supply chain security.
+This is a sandbox to learn about supply chain security. More to come
