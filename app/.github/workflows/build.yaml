@@ -1,5 +1,6 @@
 name: Docker Image Build and Publish to ACR
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
