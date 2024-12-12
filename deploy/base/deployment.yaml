@@ -5,17 +5,19 @@ metadata:
   labels:
     app: python-sc
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: python-sc
   template:
     metadata:
       labels:
-        app: nginx
+        app: python-sc
     spec:
+      imagePullSecrets:
+        - name: ignitedemo-acr
       containers:
         - name: python-sc
-          image: ignitedemoacr.azurecr.io/python-sc:0.0.0
+          image: ignitedemoacr.azurecr.io/python-sc:latest
           ports:
             - containerPort: 8080
