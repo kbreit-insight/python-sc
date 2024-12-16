@@ -18,6 +18,7 @@ spec:
         - name: ignitedemo-acr
       containers:
         - name: python-sc
-          image: ignitedemoacr.azurecr.io/python-sc:latest
+          imagePullPolicy: Always
+          image: ignitedemoacr.azurecr.io/python-sc@sha256:82dd60b081c6a5c9c201876d26827550490a787b821bc60d97289944ce52a3ef
           ports:
             - containerPort: 8080
