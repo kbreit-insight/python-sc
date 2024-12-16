@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Install cosign
         uses: sigstore/cosign-installer@v3.7.0
+      - name: Check cosign install version
+        run: cosign version
       - name: Login to ACR
         uses: docker/login-action@v3
         with:
@@ -25,6 +27,12 @@ jobs:
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Gather Docker meta information
+        id: docker_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ vars.ACR_LOGIN_SERVER }}/${{ github.event.repository.name }}
+          tags: type=sha,format=long
       - name: Build and push image
         id: push
         uses: docker/build-push-action@v6
@@ -38,3 +46,13 @@ jobs:
           subject-name: ${{ vars.ACR_LOGIN_SERVER }}/${{ github.event.repository.name }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+      - name: Sign image without a key
+        run: |
+          images=""
+          for tag in ${TAGS}; do
+            images+="${tag}@${DIGEST} "
+          done
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY ${images}
+        env:
+          TAGS: ${{ steps.docker_meta.outputs.tags }}
+          DIGEST: ${{ steps.push.outputs.digest }}
