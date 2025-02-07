@@ -19,6 +19,7 @@ spec:
       containers:
         - name: python-sc
           imagePullPolicy: Always
-          image: ignitedemoacr.azurecr.io/python-sc@sha256:82dd60b081c6a5c9c201876d26827550490a787b821bc60d97289944ce52a3ef
+          # image: ignitedemoacr.azurecr.io/python-sc@sha256:e16b8687f064f7c7b116d9856955641ad9b0794a54861acec570204a15b0abfc
+          image: ignitedemoacr.azurecr.io/python-sc:latest
           ports:
             - containerPort: 8080
