@@ -19,7 +19,7 @@ jobs:
           password: ${{ secrets.AZURE_CLIENT_SECRET }}
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Build and push image
+      - name: Build and push staging image
         id: push
         uses: docker/build-push-action@v6
         with:
